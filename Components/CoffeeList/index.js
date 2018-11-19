@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { ImageBackground, View, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-
 // NativeBase Components
 import {
   List,
@@ -11,16 +10,38 @@ import {
   Thumbnail,
   Text,
   Left,
-  Content
+  Content,
+  Button,
+  Icon
 } from "native-base";
 
 // Style
 import styles from "./styles";
 
 class CoffeeList extends Component {
-  handlePress() {
-    alert("Pressed");
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "Coffee List",
+      headerLeft: null,
+      headerRight: (
+        <Button
+          transparent
+          color="white"
+          onPress={() => navigation.navigate("CoffeeCart")}
+        >
+          <Icon active name="cart" />
+        </Button>
+      ),
+      headerStyle: {
+        backgroundColor: "white"
+      },
+      headerTintColor: "black"
+    };
+  };
+  handlePress(shop) {
+    this.props.navigation.navigate("CoffeeDetail", { shop: shop });
   }
+
   renderItem(shop) {
     return (
       <TouchableOpacity key={shop.id} onPress={() => this.handlePress(shop)}>
